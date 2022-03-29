@@ -33,35 +33,61 @@ Portanto, o código acima deve exibir "Chris".
 
 class LeagueTable
 {
-	public function __construct($players)
+    public function __construct($players)
     {
-		$this->standings = array();
-		foreach($players as $index => $p)
-        {
-			$this->standings[$p] = array
+        $this->standings = array();
+        foreach ($players as $index => $p) {
+            $this->standings[$p] = array
             (
                 'index' => $index,
-                'games_played' => 0, 
+                'games_played' => 0,
                 'score' => 0
             );
         }
-	}
-		
-	public function recordResult($player, $score)
+    }
+
+    public function recordResult($player, $score)
     {
-		$this->standings[$player]['games_played']++;
-		$this->standings[$player]['score'] += $score;
-	}
-	
-	public function playerRank($rank)
+        $this->standings[$player]['games_played']++;
+        $this->standings[$player]['score'] += $score;
+    }
+
+    public function playerRank($rank)
     {
-        return NULL;
-	}
+
+        uasort($this->standings, function ($a, $b) {
+
+            if ($a['score'] !== $b['score']) {
+                if ($a['score'] > $b['score']) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+
+            if ($a['games_played'] !== $b['games_played']) {
+                if ($a['games_played'] < $b['games_played']) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+
+            if (($a['score'] === $b['score']) && ($a['games_played'] === $b['games_played'])) {
+                return $a['index'] > $b['index'] ? 1 : -1;
+            }
+            return 1;
+        });
+        $position = $rank - 1;
+        return array_keys($this->standings)[$position];
+    }
+
 }
-      
-$table = new LeagueTable(array('Mike', 'Chris', 'Arnold'));
+
+$table = new LeagueTable(array('Mike', 'Chris', 'Arnold', 'Talita', 'Maic'));
 $table->recordResult('Mike', 2);
 $table->recordResult('Mike', 3);
 $table->recordResult('Arnold', 5);
 $table->recordResult('Chris', 5);
+
 echo $table->playerRank(1);

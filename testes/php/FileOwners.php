@@ -15,7 +15,16 @@ class FileOwners
 {
     public static function groupByOwners($files)
     {
-        return NULL;
+        $owners = [];
+        foreach ($files as $file => $owner) {
+            if (!isset($owners[ucfirst($owner)])) {
+                $owners[ucfirst($owner)][0] = $file;
+            }else{
+                $owners[ucfirst($owner)][count($owners[ucfirst($owner)])] = $file;
+            }
+        }
+
+        return $owners;
     }
 }
 

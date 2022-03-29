@@ -29,6 +29,12 @@
 
 function setup () {
   // Write your code here.
+    let remove = document.querySelectorAll('.remove');
+    for (const removeKey of remove) {
+        removeKey.addEventListener('click', function () {
+            this.parentNode.remove();
+        });
+    }
 }
 
 // Example case. 

@@ -1,3 +1,4 @@
+/*
 As informações sobre animais de estimação são mantidas em duas tabelas separadas:
 
 TABLE dogs
@@ -10,3 +11,12 @@ TABLE cats
 
 
 Escreva uma consulta que selecione todos os nomes de animais distintos.
+
+Resposta:
+*/
+
+SELECT name
+FROM dogs
+UNION
+SELECT name
+FROM cats

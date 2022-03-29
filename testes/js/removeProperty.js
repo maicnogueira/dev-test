@@ -6,5 +6,9 @@
 // em todos os outros casos, retorna falso.
 
 function removeProperty(obj, prop) {
-  return null;
+  if(obj.hasOwnProperty(prop)){
+    delete obj.prop;
+    return true;
+  }
+  return false;
 }

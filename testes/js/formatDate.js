@@ -4,6 +4,8 @@
 
 
 function formatDate(userDate) {
+    let date = userDate.split("/");
+    return `${date[2]}${date[0]}${date[1]}`;
   // format from M/D/YYYY to YYYYMMDD
 }
 
